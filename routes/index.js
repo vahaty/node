@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 const producto = [
     { producto: 'Libro', precio: 20 },
     { producto: 'PC', precio: 200 }
