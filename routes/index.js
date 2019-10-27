@@ -6,7 +6,12 @@ const producto = [
     { producto: 'PC', precio: 200 }
 ]
 
-module.exports = function () {º
+// importar el controlador
+const proyectosController = require('../controllers/proyectosController');
+
+
+module.exports = function () {
+    router.get('/',proyectosController.poyectosHome );
     // ruta para el home 
     router.get('/', (request, response) => {
         response.send('Hola');
