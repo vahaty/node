@@ -13,8 +13,8 @@ const proyectosController = require('../controllers/proyectosController');
 module.exports = function () {
     router.get('/',proyectosController.poyectosHome );
     // ruta para el home 
-    router.get('/', (request, response) => {
-        response.send('Hola');
+    router.get('/nosotros', (request, response) => {
+        response.render('nosotros');
         // response.json(producto);
     });
 
