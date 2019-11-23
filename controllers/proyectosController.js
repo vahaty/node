@@ -1,3 +1,5 @@
+const Proyectos = require('../model/Proyectos');
+
 exports.poyectosHome = (req, res) => {
     //   res.send('Index');
     res.render('index', {
@@ -31,6 +33,13 @@ exports.nuevoProyecto = (req, res) => {
             errores
         })
     } else {
-
+        // insertar en bbdd
+        Proyectos.create({ nombre })
+            .then(() => {
+                console.log("insertado correctamente");
+            },() => {
+                    console.log("error al insertar");
+                
+            });
     }
-}
+}∫
