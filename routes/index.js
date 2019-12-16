@@ -11,11 +11,13 @@ const producto = [
 // importar el controlador
 const proyectosController = require('../controllers/proyectosController');
 
-module.exports = function () { 
+module.exports = function () {
     router.get('/', proyectosController.poyectosHome);
     router.get('/nuevo-proyecto', proyectosController.formularioProyecto);
     router.post('/nuevo-proyecto',
         body('nombre').not().isEmpty().trim(), //validacion del body que no este vacio y elimar espacios blancos
-        proyectosController.nuevoProyecto);
+        proyectosController.nuevoProyecto
+    );
+    router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
     return router;
 }

@@ -5,6 +5,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
+// helpers con algunas funciones
+const helpers = require('./helpers');
+
 // crear la conexion a la bbdd
 const db = require('./config/db');
 require('./model/Proyectos');
@@ -20,6 +23,13 @@ const app = express();
 
 // donde cargar los archivos estaticos
 app.use(express.static('public'));
+
+
+// pasar vardump a la app
+app.use((req, res, next) => {
+    res.locals.vardump = helpers.vardump;
+    next(); // completa una accion y se va  la siguiente
+})
 
 // habilitar pug 
 app.set('view engine', 'pug');

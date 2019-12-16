@@ -37,10 +37,14 @@ exports.nuevoProyecto = async (req, res) => {
             errores
         })
     } else {
-        console.log(slug(nombre));
-        const url = slug(nombre).toLowerCase();
+        // console.log(slug(nombre));
+        // const url = slug(nombre).toLowerCase();
         // insertar en bbdd
-        const proyecto = await Proyectos.create({ nombre, url });
+        const proyecto = await Proyectos.create({ nombre });
         res.redirect('/');
     }
+}
+
+exports.proyectoPorUrl = (req, res) =>{
+    res.send(req.params.url);
 }
