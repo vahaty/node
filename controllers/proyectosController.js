@@ -1,9 +1,12 @@
 const Proyectos = require('../model/Proyectos');
+const slug = require('slug');
 
-exports.poyectosHome = (req, res) => {
+exports.poyectosHome = async (req, res) => {
+    const proyectos = await Proyectos.findAll(); // trae todo lo que tng la bbdd
     //   res.send('Index');
     res.render('index', {
-        nombrePagina: 'Proyectos'
+        nombrePagina: 'Proyectos',
+        proyectos
     });
 }
 
@@ -14,7 +17,8 @@ exports.formularioProyecto = (req, res) => {
     });
 }
 
-exports.nuevoProyecto = (req, res) => {
+// funciona asincrona
+exports.nuevoProyecto = async (req, res) => {
     // res.send('Formulario enviado');
     // envar a la consola lo que el usuario escriba
     console.log(req.body);
@@ -33,13 +37,10 @@ exports.nuevoProyecto = (req, res) => {
             errores
         })
     } else {
+        console.log(slug(nombre));
+        const url = slug(nombre).toLowerCase();
         // insertar en bbdd
-        Proyectos.create({ nombre })
-            .then(() => {
-                console.log("insertado correctamente");
-            },() => {
-                    console.log("error al insertar");
-                
-            });
+        const proyecto = await Proyectos.create({ nombre, url });
+        res.redirect('/');
     }
-}∫
+}

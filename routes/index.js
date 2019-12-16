@@ -1,3 +1,5 @@
+const { body } = require('express-validator/check');
+
 const express = require('express');
 const router = express.Router();
 
@@ -9,12 +11,11 @@ const producto = [
 // importar el controlador
 const proyectosController = require('../controllers/proyectosController');
 
-
-module.exports = function () {
-    router.get('/',proyectosController.poyectosHome );
+module.exports = function () { 
+    router.get('/', proyectosController.poyectosHome);
     router.get('/nuevo-proyecto', proyectosController.formularioProyecto);
-    router.post('/nuevo-proyecto', proyectosController.nuevoProyecto);
-
-
+    router.post('/nuevo-proyecto',
+        body('nombre').not().isEmpty().trim(), //validacion del body que no este vacio y elimar espacios blancos
+        proyectosController.nuevoProyecto);
     return router;
 }
