@@ -10,10 +10,12 @@ exports.poyectosHome = async (req, res) => {
     });
 }
 
-exports.formularioProyecto = (req, res) => {
+exports.formularioProyecto = async (req, res) => {
+    const proyectos = await Proyectos.findAll();
     //   res.send('Index');
     res.render('nuevoProyecto', {
-        nombrePagina: 'nuevoProyecto'
+        nombrePagina: 'nuevoProyecto',
+        proyectos
     });
 }
 
@@ -22,6 +24,7 @@ exports.nuevoProyecto = async (req, res) => {
     // res.send('Formulario enviado');
     // envar a la consola lo que el usuario escriba
     console.log(req.body);
+    const proyectos = await Proyectos.findAll();
 
     // validar que este relleno
     const { nombre } = req.body;
@@ -34,7 +37,8 @@ exports.nuevoProyecto = async (req, res) => {
     if (errores.length > 0) {
         res.render('nuevoProyecto', {
             nombrePagina: 'Nuevo proyecto ',
-            errores
+            errores,
+            proyectos
         })
     } else {
         // console.log(slug(nombre));
@@ -45,6 +49,40 @@ exports.nuevoProyecto = async (req, res) => {
     }
 }
 
-exports.proyectoPorUrl = (req, res) =>{
+exports.proyectoPorUrl = async (req, res) => {
     res.send(req.params.url);
+    const proyectos = await Proyectos.findAll();
+    // solo trae uno 
+    const proyecto = Proyecto.findOne({
+        where: {
+            url: req.params.url
+        }
+    });
+    if (!proyecto) {
+        return next();
+    }
+    console.log(proyecto);
+    res.send('OK')
+
+    // render to view 
+    res.render('tareas', {
+        nombrePagina: 'Tareas del proyecto',
+        proyecto,
+        proyectos
+    })
+}
+
+exports.formularioEditar = async (req, res) => {
+    const proyectosPromise = Proyectos.findAll();
+    const proyectoPromise = Proyectos.findOne({
+        where: {
+            id: req.params.id
+        }
+    });
+    const [proyectos, proyecto] = await Promise.all([proyectosPromise, proyectoPromise]);
+    res.render('nuevoProyecto', {
+        nombrePagina :'Editar proyecto',
+        proyectos,
+        proyecto
+    })
 }

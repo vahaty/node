@@ -19,5 +19,8 @@ module.exports = function () {
         proyectosController.nuevoProyecto
     );
     router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
+
+    // actulizar el proyecto 
+    router.get('/proyecto/editar/:id', proyectosController.formularioEditar)
     return router;
 }
