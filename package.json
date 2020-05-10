@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./index.js",
+    // "start" : "currently" // para lanzar varios script a la misma vez
+    // ejecuta cada vez que haya cambios
+    "watch": "webpack --w --node development" 
   },
   "repository": {
     "type": "git",

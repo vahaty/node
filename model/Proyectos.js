@@ -2,6 +2,12 @@ const sequelize = require('sequelize');
 
 const db = require('../config/db');
 const shortid = require('shortid')
+
+// obtener la url donde se encuentra 
+// btnEliminar.addEventListener('click', e =>{
+//     const urlPoyecto = e.target.dataset.proyectoUrl;
+// })
+
 const Proyectos = db.define('proyectos', {
 
     id: {
